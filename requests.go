@@ -31,6 +31,7 @@ type CertificateCreationRequest struct {
 	ApproverPhone           string
 	KVK                     string
 	Reference               string
+	Language                string
 }
 
 func (self CertificateCreationRequest) ToURLValues() url.Values {
@@ -81,6 +82,34 @@ func (self CertificateCreationRequest) ToURLValues() url.Values {
 	if self.Reference != "" {
 		values.Set("reference", self.Reference)
 	}
+	if self.Language != "" {
+		values.Set("language", self.Language)
+	}
+	return values
+}
+
+type EECreationRequest struct {
+	CSR			string
+	DCVType                 string
+	SubjectAlternativeNames []string
+	ApproverFirstName       string
+	ApproverLastName        string
+	ApproverEmail           string
+	ApproverPhone           string
+	Validate		bool
+}
+
+func (self EECreationRequest) ToURLValues() url.Values {
+	values := url.Values{}
+	values.Set("csr", self.CSR)
+	values.Set("dcvType", self.DCVType)
+	values.Set("approverFirstName", self.ApproverFirstName)
+	values.Set("approverLastName", self.ApproverLastName)
+	values.Set("approverEmail", self.ApproverEmail)
+	values.Set("approverPhone", self.ApproverPhone)
+	if len(self.SubjectAlternativeNames) > 0 {
+		values.Set("subjectAlternativeNames", strings.Join(self.SubjectAlternativeNames, ","))
+	}
 	return values
 }
 
@@ -100,6 +129,7 @@ type CertificateReissueRequest struct {
 	ApproverPhone           string
 	KVK                     string
 	Reference               string
+	Language                string
 }
 
 func (self CertificateReissueRequest) ToURLValues() url.Values {
@@ -148,6 +178,9 @@ func (self CertificateReissueRequest) ToURLValues() url.Values {
 	if self.Reference != "" {
 		values.Set("reference", self.Reference)
 	}
+	if self.Language != "" {
+		values.Set("language", self.Language)
+	}
 	return values
 }
 
@@ -170,6 +203,7 @@ type CertificateRenewRequest struct {
 	ApproverPhone           string
 	KVK                     string
 	Reference               string
+	Language                string
 }
 
 func (self CertificateRenewRequest) ToURLValues() url.Values {
@@ -219,6 +253,9 @@ func (self CertificateRenewRequest) ToURLValues() url.Values {
 	}
 	if self.Reference != "" {
 		values.Set("reference", self.Reference)
+	}
+	if self.Language != "" {
+		values.Set("language", self.Language)
 	}
 	return values
 }

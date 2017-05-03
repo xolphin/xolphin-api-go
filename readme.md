@@ -38,7 +38,7 @@ func main() {
 
 ### Requests
 
-#### Getting list of requests
+#### Get list of requests
 
 ```go
 requests, err := client.Request().All()
@@ -50,7 +50,7 @@ for _, request := range requests {
 }
 ```
 
-### Getting request by ID
+#### Get request by ID
 
 ```go
 request, err := client.Request().Get(1234)
@@ -60,7 +60,7 @@ if err != nil {
 fmt.Println(request.Embedded.Product.Brand)
 ```
 
-### Request certificate
+#### Request certificate
 
 ```go
 ccr := client.Request().Create(24, 1, `<csr_string>`, "EMAIL")
@@ -82,6 +82,54 @@ if err != nil {
     fmt.Println(err)
 }
 fmt.Println(result.Id)
+```
+
+#### Create a note
+
+```go
+result, err := client.Request().SendNote(1234, "My message")
+	if err != nil {
+		fmt.Println(err)
+	}
+fmt.Println(result)
+```
+
+#### Get list of notes
+
+```go
+result, err := client.Request().GetNotes(960002428)
+if err != nil {
+    fmt.Println(err)
+}
+for _,element := range result {
+    fmt.Println(element)
+}
+```
+
+#### Send a "Comodo Subscriber Agreement" email
+
+```go
+//currently available languages: en, de, fr, nl
+result, err := client.Request().SendComodoSA(1234, "mail@example.com","en")
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println(result)
+```
+
+#### Request an "Encryption Everywhere" certificate
+```go
+ccr := client.Request().CreateEE()
+ccr.CSR = "<csr_string>"
+ccr.ApproverFirstName = "FirstName"
+ccr.ApproverLastName = "LastName"
+ccr.ApproverPhone = "+1234567890"
+ccr.ApproverEmail = "email@domain.com"
+ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test1.domain.com")
+ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test2.domain.com")
+ccr.DCVType = "FILE"
+
+result, err := client.Request().SendEE(ccr)
 ```
 
 ### Certificate

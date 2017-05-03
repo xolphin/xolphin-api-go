@@ -31,6 +31,8 @@ type RequestValidationResponse struct {
 		Status        interface{} `json:"status"` // TODO: what is proper type for this - boolean or integer?
 		StatusDetail  interface{} `json:"statusDetail"` // TODO: what is proper type for this - boolean or integer?
 		StatusMessage string      `json:"statusMessage"`
+		Md5 	      string      `json:"md5"`
+		Sha1 	      string      `json:"sha1"`
 	}
 }
 
@@ -72,6 +74,7 @@ type RequestResponse struct {
 		Phone        RequestValidationResponse `json:"phone"`
 		Whois        RequestValidationResponse `json:"whois"`
 		DCV          RequestValidationResponse `json:"dcv"`
+		Request      RequestValidationResponse `json:"request"`
 	} `json:"validations"`
 	Department        string `json:"department"`
 	Address           string `json:"address"`
@@ -84,10 +87,20 @@ type RequestResponse struct {
 	ApproverLastName  string `json:"approverLastName"`
 	ApproverEmail     string `json:"approverEmail"`
 	ApproverPhone     string `json:"approverPhone"`
+	RequiresAction    bool   `json:"requiresAction"`
+	BrandValidation   bool   `json:"brandValidation"`
 	KVK               string `json:"kvk"`
 	Embedded          struct {
 		Product ProductResponse `json:"product"`
 	} `json:"_embedded"`
+}
+
+type RequestEEResponse struct {
+	BaseResponse
+	Id                      int        `json:"id"`
+	DateOrdered             CustomTime `json:"dateOrdered"`
+	Pkcs7			string	   `json:"pkcs7"`
+	Certificate		string	   `json:"crt"`
 }
 
 type CertificatesResponse struct {
@@ -121,4 +134,21 @@ type CSRResponse struct {
 	City     string   `json:"city"`
 	Country  string   `json:"country"`
 	AltNames []string `json:"altNames"`
+}
+
+type NotesResponse struct {
+	BaseResponse
+	Embedded struct {
+ 		Notes []NoteResponse `json:"notes"`
+ 	} `json:"_embedded"`
+}
+
+type NoteResponse struct {
+	BaseResponse
+	Contact   string     `json:"contact"`
+	Staff     string     `json:"staff"`
+	Date  	  string     `json:"date"`
+	Time      string     `json:"time"`
+	Message   string     `json:"message"`
+	CreatedAt CustomTime `json:"createdAt"`
 }

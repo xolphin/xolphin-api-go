@@ -28,7 +28,7 @@ func (self Client) Get(method string, data url.Values) ([]byte, error) {
 	}
 	req.SetBasicAuth(self.username, self.password)
     req.Header.Add("Accept", "application/json")
-    req.Header.Set("User-Agent", "xolphin-api-go/v1.0")
+    req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return []byte{}, err
@@ -72,6 +72,7 @@ func (self Client) Post(method string, data url.Values) ([]byte, error) {
 	req.SetBasicAuth(self.username, self.password)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", writer.FormDataContentType())
+	req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return []byte{}, err
@@ -102,25 +103,25 @@ func (self *Client) Support() *SupportEndpoints {
 	}
 }
 
-func NewClient(username, password string) *Client {
-	/*
-	u, _ := url.Parse("http://127.0.0.1:8888")
-	c := &Client{
-		BaseURI:  "https://api.xolphin.com/v1/%s",
-		username: username,
-		password: password,
-		client: &http.Client{
-			Transport: &http.Transport{
-				Proxy: http.ProxyURL(u),
-			},
-		},
+func GetClient(username, password string, test bool) *Client{
+	var uri = "https://api.xolphin.com/v1/%s"
+	if(test){
+		uri = "https://test-api.xolphin.com/v1/%s"
 	}
-	*/
+
 	c := &Client{
-		BaseURI:  "https://api.xolphin.com/v1/%s",
+		BaseURI:  uri,
 		username: username,
 		password: password,
 		client: &http.Client{},
 	}
 	return c
+}
+
+func NewClient(username, password string) *Client {
+	return GetClient(username, password, false)
+}
+
+func NewTestClient(username, password string) *Client {
+	return GetClient(username, password, true)
 }
