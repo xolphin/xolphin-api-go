@@ -19,4 +19,3 @@ func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 func (ct *CustomTime) MarshalJSON() ([]byte, error) {
 	return []byte(ct.Time.Format(ctLayout)), nil
 }
-

@@ -1,7 +1,8 @@
 package xolphin
 
 type BaseResponse struct {
-	Message string `json:"message"`
+	Message string              `json:"message"`
+	Errors  map[string][]string `json:"errors"`
 
 	Page  int `json:"page"`
 	Limit int `json:"limit"`
@@ -10,7 +11,7 @@ type BaseResponse struct {
 }
 
 func (self BaseResponse) isError() bool {
-	return self.Message != ""
+	return len(self.Message) > 0 || len(self.Errors) > 0
 }
 
 type RequestsResponse struct {
@@ -28,11 +29,11 @@ type RequestValidationResponse struct {
 		Domain        string      `json:"domain"`
 		DCVType       string      `json:"dcvType"`
 		DCVEmail      string      `json:"dcvEmail"`
-		Status        interface{} `json:"status"` // TODO: what is proper type for this - boolean or integer?
+		Status        interface{} `json:"status"`       // TODO: what is proper type for this - boolean or integer?
 		StatusDetail  interface{} `json:"statusDetail"` // TODO: what is proper type for this - boolean or integer?
 		StatusMessage string      `json:"statusMessage"`
-		Md5 	      string      `json:"md5"`
-		Sha1 	      string      `json:"sha1"`
+		Md5           string      `json:"md5"`
+		Sha1          string      `json:"sha1"`
 	}
 }
 
@@ -97,10 +98,10 @@ type RequestResponse struct {
 
 type RequestEEResponse struct {
 	BaseResponse
-	Id                      int        `json:"id"`
-	DateOrdered             CustomTime `json:"dateOrdered"`
-	Pkcs7			string	   `json:"pkcs7"`
-	Certificate		string	   `json:"crt"`
+	Id          int        `json:"id"`
+	DateOrdered CustomTime `json:"dateOrdered"`
+	Pkcs7       string     `json:"pkcs7"`
+	Certificate string     `json:"crt"`
 }
 
 type CertificatesResponse struct {
@@ -139,15 +140,15 @@ type CSRResponse struct {
 type NotesResponse struct {
 	BaseResponse
 	Embedded struct {
- 		Notes []NoteResponse `json:"notes"`
- 	} `json:"_embedded"`
+		Notes []NoteResponse `json:"notes"`
+	} `json:"_embedded"`
 }
 
 type NoteResponse struct {
 	BaseResponse
 	Contact   string     `json:"contact"`
 	Staff     string     `json:"staff"`
-	Date  	  string     `json:"date"`
+	Date      string     `json:"date"`
 	Time      string     `json:"time"`
 	Message   string     `json:"message"`
 	CreatedAt CustomTime `json:"createdAt"`

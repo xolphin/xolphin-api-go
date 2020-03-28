@@ -31,7 +31,7 @@ func (self *RequestEndpoints) All() ([]RequestResponse, error) {
 				return result, nil
 			}
 
-			data, err = self.c.Get("requests", url.Values{"page": []string{fmt.Sprintf("%d", requestsData.Page + 1)}})
+			data, err = self.c.Get("requests", url.Values{"page": []string{fmt.Sprintf("%d", requestsData.Page+1)}})
 			if err != nil {
 				return result, err
 			}
@@ -54,15 +54,15 @@ func (self *RequestEndpoints) All() ([]RequestResponse, error) {
 func (self *RequestEndpoints) Create(product int, years int, csr string, dcv_type string) CertificateCreationRequest {
 	return CertificateCreationRequest{
 		Product: product,
-		Years: years,
-		CSR: csr,
+		Years:   years,
+		CSR:     csr,
 		DCVType: dcv_type,
 	}
 }
 
 func (self *RequestEndpoints) Reissue(csr string, dcv_type string) CertificateReissueRequest {
 	return CertificateReissueRequest{
-		CSR: csr,
+		CSR:     csr,
 		DCVType: dcv_type,
 	}
 }
@@ -70,8 +70,8 @@ func (self *RequestEndpoints) Reissue(csr string, dcv_type string) CertificateRe
 func (self *RequestEndpoints) Renew(product int, years int, csr string, dcv_type string) CertificateRenewRequest {
 	return CertificateRenewRequest{
 		Product: product,
-		Years: years,
-		CSR: csr,
+		Years:   years,
+		CSR:     csr,
 		DCVType: dcv_type,
 	}
 }
@@ -231,7 +231,7 @@ func (self *RequestEndpoints) GetNotes(id int) ([]NoteResponse, error) {
 	}
 	if requestsData.isError() {
 		return result, err
-	}else{
+	} else {
 		return requestsData.Embedded.Notes, err
 	}
 }

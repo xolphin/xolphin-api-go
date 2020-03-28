@@ -27,8 +27,8 @@ func (self Client) Get(method string, data url.Values) ([]byte, error) {
 		return []byte{}, err
 	}
 	req.SetBasicAuth(self.username, self.password)
-    req.Header.Add("Accept", "application/json")
-    req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
+	req.Header.Add("Accept", "application/json")
+	req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return []byte{}, err
@@ -103,9 +103,9 @@ func (self *Client) Support() *SupportEndpoints {
 	}
 }
 
-func GetClient(username, password string, test bool) *Client{
+func GetClient(username, password string, test bool) *Client {
 	var uri = "https://api.xolphin.com/v1/%s"
-	if(test){
+	if test {
 		uri = "https://test-api.xolphin.com/v1/%s"
 	}
 
@@ -113,7 +113,7 @@ func GetClient(username, password string, test bool) *Client{
 		BaseURI:  uri,
 		username: username,
 		password: password,
-		client: &http.Client{},
+		client:   &http.Client{},
 	}
 	return c
 }

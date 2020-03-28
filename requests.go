@@ -89,14 +89,14 @@ func (self CertificateCreationRequest) ToURLValues() url.Values {
 }
 
 type EECreationRequest struct {
-	CSR			string
+	CSR                     string
 	DCVType                 string
 	SubjectAlternativeNames []string
 	ApproverFirstName       string
 	ApproverLastName        string
 	ApproverEmail           string
 	ApproverPhone           string
-	Validate		bool
+	Validate                bool
 }
 
 func (self EECreationRequest) ToURLValues() url.Values {
@@ -183,7 +183,6 @@ func (self CertificateReissueRequest) ToURLValues() url.Values {
 	}
 	return values
 }
-
 
 type CertificateRenewRequest struct {
 	Product                 int
