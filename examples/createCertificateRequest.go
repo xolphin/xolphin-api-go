@@ -6,8 +6,7 @@ import (
 )
 
 func main() {
-    //client := xolphin.NewClient("<username>", "<password>")
-    client := xolphin.NewClient("serhii@xolphin.nl", "test123")
+    client := xolphin.NewClient("<username>", "<password>")
     csr := `-----BEGIN CERTIFICATE REQUEST-----
 MIICszCCAZsCAQAwbjELMAkGA1UEBhMCR0IxDzANBgNVBAgMBkxvbmRvbjEPMA0G
 A1UEBwwGTG9uZG9uMRMwEQYDVQQKDApTU0wyNDcgTHRkMQswCQYDVQQLDAJJVDEb
