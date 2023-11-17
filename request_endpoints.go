@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"reflect"
 	"net/url"
 	"time"
 )
@@ -172,15 +173,36 @@ func (self *RequestEndpoints) RetryDCV(id int, domain string, dcv_type string, e
 	}
 	return result, nil
 }
-
-func (self *RequestEndpoints) ScheduleValidationCall(id int, t time.Time) (BaseResponse, error) {
+func (self *RequestEndpoints) ScheduleValidationCall(id int, callParams interface{}) (BaseResponse, error) {
 	result := BaseResponse{}
-
 	payload := url.Values{}
-	payload.Set("date", t.Format("2006-01-02"))
-	payload.Set("time", t.Format("15:04"))
 
+	callParamsType := reflect.TypeOf(callParams)
+	name := callParamsType.Name()
+
+	if(name == "Time"){
+		callDetails, ok := callParams.(time.Time)
+		if(ok){			
+			payload.Set("date", callDetails.Format("2006-01-02"))
+			payload.Set("time", callDetails.Format("15:04"))
+		}
+	}else{
+		callDetails, ok := callParams.(map[string]string)
+		if(ok){			
+			payload.Set("timezone",callDetails["Timezone"])
+			payload.Set("action",callDetails["Action"])
+			payload.Set("phoneNumber",callDetails["PhoneNumber"])
+			payload.Set("extensionNumber",callDetails["ExtensionNumber"])
+			payload.Set("emailAddress",callDetails["EmailAddress"])
+			payload.Set("language",callDetails["Language"])
+			payload.Set("comments",callDetails["Comments"])
+			payload.Set("date",callDetails["Date"])
+			payload.Set("time",callDetails["Time"])
+		}
+	}
+	
 	data, err := self.c.Post(fmt.Sprintf("requests/%d/schedule-validation-call", id), payload)
+
 	if err != nil {
 		return result, err
 	}
@@ -188,11 +210,12 @@ func (self *RequestEndpoints) ScheduleValidationCall(id int, t time.Time) (BaseR
 	if err != nil {
 		return result, err
 	}
-	if result.isError() {
-		return result, errors.New(result.Message)
-	}
+
 	return result, nil
+
 }
+
+
 
 func (self *RequestEndpoints) SendNote(id int, note string) (BaseResponse, error) {
 	result := BaseResponse{}

@@ -28,7 +28,7 @@ func (self Client) Get(method string, data url.Values) ([]byte, error) {
 	}
 	req.SetBasicAuth(self.username, self.password)
     req.Header.Add("Accept", "application/json")
-    req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
+    req.Header.Set("User-Agent", "xolphin-api-go/v1.5.1")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return []byte{}, err
@@ -72,7 +72,7 @@ func (self Client) Post(method string, data url.Values) ([]byte, error) {
 	req.SetBasicAuth(self.username, self.password)
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", writer.FormDataContentType())
-	req.Header.Set("User-Agent", "xolphin-api-go/v1.5.0")
+	req.Header.Set("User-Agent", "xolphin-api-go/v1.5.1")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return []byte{}, err

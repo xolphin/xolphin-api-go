@@ -87,6 +87,12 @@ type RequestResponse struct {
 	ApproverLastName  string `json:"approverLastName"`
 	ApproverEmail     string `json:"approverEmail"`
 	ApproverPhone     string `json:"approverPhone"`
+	ApproverRepresentativeFirstName string `json:"approverRepresentativeFirstName"`
+	ApproverRepresentativeLastName  string `json:"approverRepresentativeLastName"`
+	ApproverRepresentativeEmail     string `json:"approverRepresentativeEmail"`
+	ApproverRepresentativePhone     string `json:"approverRepresentativePhone"`
+	ApproverRepresentativePositon     string `json:"approverRepresentativePositon"`
+	
 	RequiresAction    bool   `json:"requiresAction"`
 	BrandValidation   bool   `json:"brandValidation"`
 	KVK               string `json:"kvk"`
