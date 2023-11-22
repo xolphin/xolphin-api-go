@@ -7,7 +7,7 @@ import (
 
 func main() {
     client := xolphin.NewClient("<username>", "<password>")
-    request, err := client.Request().Get(123456)
+    request, err := client.Request().Get(964178701)
     if err != nil {
         fmt.Println("ERROR")
         fmt.Println(err)

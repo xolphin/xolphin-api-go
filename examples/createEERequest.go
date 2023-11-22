@@ -1,12 +1,12 @@
 package main
 
 import (
-	"xolphin"
+	"xolphin-api-go"
 	"fmt"
 )
 
 func main() {
-	client := xolphin.NewTestClient("<username>", "<password>")
+	client := xolphin.NewClient("<username>", "<password>")
 
 	ccr := client.Request().CreateEE()
 	ccr.CSR = `-----BEGIN CERTIFICATE REQUEST-----

@@ -19,6 +19,6 @@ All notable changes to this project will be documented in this file.
 - ApproverRepresentativeEmail added to Request, Reissue, Renew structures
 - ApproverRepresentativePhone added to Request, Reissue, Renew structures
 - ApproverRepresentativePosition added to Request, Reissue, Renew structures
-
+- More scrips added to the `examples`
 ### Updated
 - ScheduleValidationCall updated to accept various actions: ScheduledCallback, ManualCallback, ReplacePhone, replaceEmailAddress, sendCallbackEmail
