@@ -1,12 +1,12 @@
 package main
 
 import (
-	"xolphin"
+	"xolphin-api-go"
 	"fmt"
 )
 
 func main() {
-	client := xolphin.NewTestClient("nikita@xolphin.nl", "test1234")
+	client := xolphin.NewClient("<username>", "<password>")
 
 	ccr := client.Request().CreateEE()
 	ccr.CSR = `-----BEGIN CERTIFICATE REQUEST-----
@@ -26,10 +26,10 @@ zi21dz/AsjG9Jc6GJqZs0ImEwCQlBhJYnXPj3FB8U/mzSWSfq502fdtmQrvIgHmI
 RLuxVO9QX0YLQ0ew1x2z+eFfBsfSI1+DkF4+5TrfJP6jQyHBR+VDdGYBO2d8rBw7
 ITIJC9tt2F4GjaPAI1xY9eoq/QfZxzNoNufMuw==
 -----END CERTIFICATE REQUEST-----`
-	ccr.ApproverFirstName = "FirstName"
-	ccr.ApproverLastName = "LastName"
-	ccr.ApproverPhone = "+1234567890"
-	ccr.ApproverEmail = "email@domain.com"
+	ccr.ApproverRepresentativeFirstName = "FirstName"
+	ccr.ApproverRepresentativeLastName = "LastName"
+	ccr.ApproverRepresentativePhone = "+1234567890"
+	ccr.ApproverRepresentativeEmail = "email@domain.com"
 	ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test1.domain.com")
 	ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test2.domain.com")
 	ccr.DCVType = "FILE"

@@ -6,7 +6,8 @@ type CustomTime struct {
 	time.Time
 }
 
-const ctLayout = "2006-01-02T15:04:05-0700"
+const ctLayout = "2006-01-02T15:04:05-07:00"
+
 
 func (ct *CustomTime) UnmarshalJSON(b []byte) (err error) {
 	if b[0] == '"' && b[len(b)-1] == '"' {

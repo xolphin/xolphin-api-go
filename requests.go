@@ -25,10 +25,17 @@ type CertificateCreationRequest struct {
 	Address                 string
 	ZIPCode                 string
 	City                    string
+	Province                string
+	Country                 string	
 	ApproverFirstName       string
 	ApproverLastName        string
 	ApproverEmail           string
 	ApproverPhone           string
+	ApproverRepresentativeFirstName       string
+	ApproverRepresentativeLastName        string
+	ApproverRepresentativeEmail           string
+	ApproverRepresentativePhone           string
+	ApproverRepresentativePosition            string
 	KVK                     string
 	Reference               string
 	Language                string
@@ -64,6 +71,12 @@ func (self CertificateCreationRequest) ToURLValues() url.Values {
 	if self.City != "" {
 		values.Set("city", self.City)
 	}
+	if self.Province  != "" {
+		values.Set("province", self.Province)
+	}
+	if self.Country  != "" {
+		values.Set("country", self.Country)
+	}
 	if self.ApproverFirstName != "" {
 		values.Set("approverFirstName", self.ApproverFirstName)
 	}
@@ -75,6 +88,21 @@ func (self CertificateCreationRequest) ToURLValues() url.Values {
 	}
 	if self.ApproverPhone != "" {
 		values.Set("approverPhone", self.ApproverPhone)
+	}
+	if self.ApproverRepresentativeFirstName != "" {
+		values.Set("approverRepresentativeFirstName", self.ApproverRepresentativeFirstName)
+	}
+	if self.ApproverRepresentativeLastName != "" {
+		values.Set("approverRepresentativeLastName", self.ApproverRepresentativeLastName)
+	}
+	if self.ApproverRepresentativeEmail != "" {
+		values.Set("approverRepresentativeEmail", self.ApproverRepresentativeEmail)
+	}
+	if self.ApproverRepresentativePhone != "" {
+		values.Set("approverRepresentativePhone", self.ApproverRepresentativePhone)
+	}
+	if self.ApproverRepresentativePosition != "" {
+		values.Set("approverRepresentativePosition", self.ApproverRepresentativePosition)
 	}
 	if self.KVK != "" {
 		values.Set("kvk", self.KVK)
@@ -88,6 +116,52 @@ func (self CertificateCreationRequest) ToURLValues() url.Values {
 	return values
 }
 
+
+type ScheduleValidationCallRequest struct {
+	Timezone                string
+	Action                  string
+	PhoneNumber             string
+	ExtensionNumber         string
+	EmailAddress            string
+	Language                string
+	Comments                string
+	Date                    string
+	Time                    string
+}
+
+func (self ScheduleValidationCallRequest) ToURLValues() url.Values {
+	values := url.Values{}
+	if self.Timezone != "" {
+		values.Set("timezone", self.Timezone)
+	}
+	if self.Action != "" {
+		values.Set("action", self.Action)
+	}
+	if self.PhoneNumber != "" {
+		values.Set("phoneNumber", self.PhoneNumber)
+	}
+	if self.ExtensionNumber != "" {
+		values.Set("extensionNumber", self.ExtensionNumber)
+	}
+	if self.EmailAddress != "" {
+		values.Set("emailAddress", self.EmailAddress)
+	}
+	if self.Language  != "" {
+		values.Set("language", self.Language)
+	}
+	if self.Comments  != "" {
+		values.Set("comments", self.Comments)
+	}
+	if self.Date  != "" {
+		values.Set("date", self.Date)
+	}
+	if self.Time  != "" {
+		values.Set("time", self.Time)
+	}
+	return values
+}
+
+
 type EECreationRequest struct {
 	CSR			string
 	DCVType                 string
@@ -96,6 +170,11 @@ type EECreationRequest struct {
 	ApproverLastName        string
 	ApproverEmail           string
 	ApproverPhone           string
+	ApproverRepresentativeFirstName       string
+	ApproverRepresentativeLastName        string
+	ApproverRepresentativeEmail           string
+	ApproverRepresentativePhone           string
+	ApproverRepresentativePosition            string
 	Validate		bool
 }
 
@@ -103,10 +182,36 @@ func (self EECreationRequest) ToURLValues() url.Values {
 	values := url.Values{}
 	values.Set("csr", self.CSR)
 	values.Set("dcvType", self.DCVType)
-	values.Set("approverFirstName", self.ApproverFirstName)
-	values.Set("approverLastName", self.ApproverLastName)
-	values.Set("approverEmail", self.ApproverEmail)
-	values.Set("approverPhone", self.ApproverPhone)
+
+
+	if self.ApproverRepresentativeFirstName != "" {
+		values.Set("approverRepresentativeFirstName", self.ApproverRepresentativeFirstName)
+	}
+	if self.ApproverRepresentativeLastName != "" {
+		values.Set("approverRepresentativeLastName", self.ApproverRepresentativeLastName)
+	}
+	if self.ApproverRepresentativeEmail != "" {
+		values.Set("approverRepresentativeEmail", self.ApproverRepresentativeEmail)
+	}
+	if self.ApproverRepresentativePhone != "" {
+		values.Set("approverRepresentativePhone", self.ApproverRepresentativePhone)
+	}
+	if self.ApproverRepresentativePosition != "" {
+		values.Set("approverRepresentativePosition", self.ApproverRepresentativePosition)
+	}
+	if self.ApproverFirstName != "" {
+		values.Set("approverFirstName", self.ApproverFirstName)
+	}
+	if self.ApproverLastName != "" {
+		values.Set("approverLastName", self.ApproverLastName)
+	}
+	if self.ApproverPhone != "" {
+		values.Set("approverPhone", self.ApproverPhone)
+	}
+	if self.ApproverEmail != "" {
+		values.Set("approverEmail", self.ApproverEmail)
+	}
+
 	if len(self.SubjectAlternativeNames) > 0 {
 		values.Set("subjectAlternativeNames", strings.Join(self.SubjectAlternativeNames, ","))
 	}
@@ -123,10 +228,17 @@ type CertificateReissueRequest struct {
 	Address                 string
 	ZIPCode                 string
 	City                    string
+	Province                string
+	Country                 string	
 	ApproverFirstName       string
 	ApproverLastName        string
 	ApproverEmail           string
 	ApproverPhone           string
+	ApproverRepresentativeFirstName       string
+	ApproverRepresentativeLastName        string
+	ApproverRepresentativeEmail           string
+	ApproverRepresentativePhone           string
+	ApproverRepresentativePosition            string
 	KVK                     string
 	Reference               string
 	Language                string
@@ -160,6 +272,12 @@ func (self CertificateReissueRequest) ToURLValues() url.Values {
 	if self.City != "" {
 		values.Set("city", self.City)
 	}
+	if self.Province  != "" {
+		values.Set("province", self.Province)
+	}
+	if self.Country  != "" {
+		values.Set("country", self.Country)
+	}		
 	if self.ApproverFirstName != "" {
 		values.Set("approverFirstName", self.ApproverFirstName)
 	}
@@ -172,6 +290,21 @@ func (self CertificateReissueRequest) ToURLValues() url.Values {
 	if self.ApproverPhone != "" {
 		values.Set("approverPhone", self.ApproverPhone)
 	}
+	if self.ApproverRepresentativeFirstName != "" {
+		values.Set("approverRepresentativeFirstName", self.ApproverRepresentativeFirstName)
+	}
+	if self.ApproverRepresentativeLastName != "" {
+		values.Set("approverRepresentativeLastName", self.ApproverRepresentativeLastName)
+	}
+	if self.ApproverRepresentativeEmail != "" {
+		values.Set("approverRepresentativeEmail", self.ApproverRepresentativeEmail)
+	}
+	if self.ApproverRepresentativePhone != "" {
+		values.Set("approverRepresentativePhone", self.ApproverRepresentativePhone)
+	}
+	if self.ApproverRepresentativePosition != "" {
+		values.Set("approverRepresentativePosition", self.ApproverRepresentativePosition)
+	}	
 	if self.KVK != "" {
 		values.Set("kvk", self.KVK)
 	}
@@ -197,10 +330,17 @@ type CertificateRenewRequest struct {
 	Address                 string
 	ZIPCode                 string
 	City                    string
+	Province                string
+	Country                 string	
 	ApproverFirstName       string
 	ApproverLastName        string
 	ApproverEmail           string
 	ApproverPhone           string
+	ApproverRepresentativeFirstName       string
+	ApproverRepresentativeLastName        string
+	ApproverRepresentativeEmail           string
+	ApproverRepresentativePhone           string
+	ApproverRepresentativePosition        string	
 	KVK                     string
 	Reference               string
 	Language                string
@@ -236,6 +376,12 @@ func (self CertificateRenewRequest) ToURLValues() url.Values {
 	if self.City != "" {
 		values.Set("city", self.City)
 	}
+	if self.Province  != "" {
+		values.Set("province", self.Province)
+	}
+	if self.Country  != "" {
+		values.Set("country", self.Country)
+	}	
 	if self.ApproverFirstName != "" {
 		values.Set("approverFirstName", self.ApproverFirstName)
 	}
@@ -248,6 +394,21 @@ func (self CertificateRenewRequest) ToURLValues() url.Values {
 	if self.ApproverPhone != "" {
 		values.Set("approverPhone", self.ApproverPhone)
 	}
+	if self.ApproverRepresentativeFirstName != "" {
+		values.Set("approverRepresentativeFirstName", self.ApproverRepresentativeFirstName)
+	}
+	if self.ApproverRepresentativeLastName != "" {
+		values.Set("approverRepresentativeLastName", self.ApproverRepresentativeLastName)
+	}
+	if self.ApproverRepresentativeEmail != "" {
+		values.Set("approverRepresentativeEmail", self.ApproverRepresentativeEmail)
+	}
+	if self.ApproverRepresentativePhone != "" {
+		values.Set("approverRepresentativePhone", self.ApproverRepresentativePhone)
+	}
+	if self.ApproverRepresentativePosition != "" {
+		values.Set("approverRepresentativePosition", self.ApproverRepresentativePosition)
+	}		
 	if self.KVK != "" {
 		values.Set("kvk", self.KVK)
 	}

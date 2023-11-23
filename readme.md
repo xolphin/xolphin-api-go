@@ -3,7 +3,7 @@ xolphin-go-api is a library which allows quick integration of the [Xolphin REST 
 
 ## About Xolphin
 [Xolphin](https://www.xolphin.nl/) is the largest supplier of [SSL Certificates](https://www.sslcertificaten.nl) and [Digital Signatures](https://www.digitalehandtekeningen.nl) in the Netherlands. Xolphin has  
-a professional team providing reliable support and rapid issuance of SSL Certificates at an affordable price from industry leading brands such as Comodo, GeoTrust, GlobalSign, Thawte and Symantec.
+a professional team providing reliable support and rapid issuance of SSL Certificates at an affordable price from industry leading brands such as Sectigo, GeoTrust, GlobalSign, Thawte and Symantec.
 ## Library installation
 
 Library can be installed go package manager
@@ -65,13 +65,15 @@ fmt.Println(request.Embedded.Product.Brand)
 ```go
 ccr := client.Request().Create(24, 1, `<csr_string>`, "EMAIL")
 ccr.Address = "Address"
-ccr.ApproverFirstName = "FirstName"
-ccr.ApproverLastName = "LastName"
-ccr.ApproverPhone = "+1234567890"
+ccr.ApproverRepresentativeFirstName = "FirstName"
+ccr.ApproverRepresentativeLastName = "LastName"
+ccr.ApproverRepresentativePhone = "+1234567890"
+ccr.ApproverRepresentativeEmail = "email@domain.com"
+ccr.ApproverRepresentativePosition = "IT"
 ccr.ZIPCode = "123456"
 ccr.City = "City"
 ccr.Company = "Company"
-ccr.ApproverEmail = "email@domain.com"
+ccr.ApproverEmail = "admin@domain.com"
 ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test1.domain.com")
 ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test2.domain.com")
 ccr.DCV = append(ccr.DCV, xolphin.DCVRequest{Domain: "test1.domain.com", DCVType: "EMAIL",  ApproverEmail: "test1@domain.com"})
@@ -121,16 +123,47 @@ fmt.Println(result)
 ```go
 ccr := client.Request().CreateEE()
 ccr.CSR = "<csr_string>"
-ccr.ApproverFirstName = "FirstName"
-ccr.ApproverLastName = "LastName"
-ccr.ApproverPhone = "+1234567890"
-ccr.ApproverEmail = "email@domain.com"
+ccr.ApproverRepresentativeFirstName = "FirstName"
+ccr.ApproverRepresentativeLastName = "LastName"
+ccr.ApproverRepresentativePhone = "+1234567890"
+ccr.ApproverRepresentativeEmail = "user@domain.com"
+ccr.ApproverRepresentativePosition = "IT"
+ccr.ApproverEmail = "admin@domain.com"
 ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test1.domain.com")
 ccr.SubjectAlternativeNames = append(ccr.SubjectAlternativeNames, "test2.domain.com")
 ccr.DCVType = "FILE"
 
 result, err := client.Request().SendEE(ccr)
 ```
+
+#### Schedule a validation callback
+```go
+now := time.Now()
+result, err := client.Request().ScheduleValidationCall(1234,now)
+
+```
+Or
+```go
+callDetails := map[string]string{
+    "Timezone" : "Europe/Amsterdam",
+    "Date" : "2024-01-01",
+    "Time" : "14:00",
+    "Action" : "ScheduledCallback",
+    "PhoneNumber" : "132465",
+    "ExtensionNumber" : "12",
+    "EmailAddress" : "email@client.com",
+    "Language" : "en-us",
+    "Comments" : "",
+}
+request, err := client.Request().ScheduleValidationCall(1234,callDetails)
+```
+where action can be:
+
+"ScheduledCallback" Schedule automatic Callback for customer 
+"ManualCallback" Notify support that customer is requesting manual callback 
+"ReplacePhone" Notify support that current phone number is invalid and suggest a new one, or that the callback method needs to be changed from Email to Telephone. 
+"replaceEmailAddress" Notify support that the callback method needs to be changed from Telephone to Email. 
+"sendCallbackEmail" Request re-sending callback email to customer
 
 ### Certificate
 
